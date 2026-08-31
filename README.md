@@ -1,8 +1,9 @@
-# Best Buy Metals - Documentation of Company Infraction
+# Best Buy Metals - Company Infraction Form
 
-An interactive, responsive web application and dynamic PDF generator replicating the official **Best Buy Metals Documentation of Company Infraction** form (`Rev 07/2026`). 
+A web application designed to replicate the official **Best Buy Metals Documentation of Company Infraction** (Rev 07/2026).
 
-Designed for 100% client-side execution, ready to deploy directly to **GitHub Pages**.
+- **Live GitHub Pages URL**: **[https://bestbuymetalsdev01.github.io/infractions-form/](https://bestbuymetalsdev01.github.io/infractions-form/)**
+- **GitHub Repository**: **[https://github.com/BestBuyMetalsDev01/infractions-form](https://github.com/BestBuyMetalsDev01/infractions-form)**
 
 ---
 
