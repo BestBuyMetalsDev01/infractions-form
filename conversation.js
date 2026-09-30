@@ -721,6 +721,7 @@ Marcus is expected to arrive promptly at his designated shift start time (7:00 A
   // Print & PDF Download Handlers
   // --------------------------------------------------------------------------
   function triggerPrint() {
+    updateDocument();
     window.print();
   }
 
@@ -729,47 +730,89 @@ Marcus is expected to arrive promptly at his designated shift start time (7:00 A
   btnPrintBottom.addEventListener('click', triggerPrint);
 
   async function downloadPdf() {
-    const originalTransform = documentRenderContainer.style.transform;
-    documentRenderContainer.style.transform = 'none';
+    updateDocument();
 
-    bottomBarDocStatus.textContent = 'Generating PDF...';
+    const empName = (inputEmployeeName.value.trim() || 'Employee').replace(/[^a-zA-Z0-9_-]/g, '_');
+    const dateStr = (inputNoticeDate.value || todayIso).replace(/-/g, '');
+    const filename = `BestBuyMetals_Conversation_${empName}_${dateStr}.pdf`;
 
-    const empName = inputEmployeeName.value.trim() || 'Employee';
-    const cleanName = empName.replace(/[^a-zA-Z0-9_-]/g, '_');
-    const noticeDate = inputNoticeDate.value || todayIso;
-    const filename = `Documentation_of_Conversation_${cleanName}_${noticeDate}.pdf`;
-
-    const opt = {
-      margin: 0,
-      filename: filename,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: {
-        scale: 2,
-        useCORS: true,
-        logging: false,
-        letterRendering: true
-      },
-      jsPDF: {
-        unit: 'in',
-        format: 'letter',
-        orientation: 'portrait'
-      }
-    };
+    const btns = [btnDownloadPdfHeader, btnDownloadPdfConfirm, btnDownloadPdfBottom];
+    btns.forEach(b => {
+      b.disabled = true;
+      b.setAttribute('data-orig', b.innerHTML);
+      b.innerHTML = `
+        <svg class="animate-spin" style="animation: spin 1s linear infinite; width:16px; height:16px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+        </svg>
+        Generating PDF...
+      `;
+    });
 
     try {
-      if (window.html2pdf) {
-        await html2pdf().set(opt).from(documentRenderContainer).save();
-      } else {
-        window.print();
+      const pages = Array.from(documentRenderContainer.querySelectorAll('.pdf-page'));
+      if (!pages.length) throw new Error('No pages found to render');
+
+      const opt = {
+        margin: 0,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          logging: false,
+          scrollY: 0,
+          scrollX: 0
+        },
+        jsPDF: {
+          unit: 'in',
+          format: 'letter',
+          orientation: 'portrait'
+        }
+      };
+
+      const updateProgress = (cur, total) => {
+        btns.forEach(b => {
+          b.innerHTML = `
+            <svg class="animate-spin" style="animation: spin 1s linear infinite; width:16px; height:16px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+            </svg>
+            Saving Page ${cur}/${total}...
+          `;
+        });
+      };
+
+      updateProgress(1, pages.length);
+
+      // Render Page 1 to initialize the underlying jsPDF instance
+      const w1 = html2pdf().set(opt).from(pages[0]);
+      await w1.toCanvas();
+      await w1.toPdf();
+      const pdf = await w1.get('pdf');
+
+      // Sequentially render every subsequent page directly onto a clean PDF page
+      for (let i = 1; i < pages.length; i++) {
+        updateProgress(i + 1, pages.length);
+        const wi = html2pdf().set(opt).from(pages[i]);
+        await wi.toCanvas();
+        const canvas = await wi.get('canvas');
+        const imgData = canvas.toDataURL('image/jpeg', 0.98);
+
+        pdf.addPage('letter', 'portrait');
+        pdf.addImage(imgData, 'JPEG', 0, 0, 8.5, 11, undefined, 'FAST');
       }
+
+      pdf.save(filename);
       bottomBarDocStatus.textContent = 'PDF Generated Successfully';
-    } catch (e) {
-      console.error('PDF export failed:', e);
-      alert('PDF generation error. Opening system print dialog as fallback...');
+    } catch (err) {
+      console.error('PDF export failed:', err);
+      alert('Could not export PDF directly. Opening print dialog where you can choose "Save as PDF".');
       window.print();
-      bottomBarDocStatus.textContent = 'Ready';
     } finally {
-      documentRenderContainer.style.transform = originalTransform;
+      btns.forEach(b => {
+        b.innerHTML = b.getAttribute('data-orig');
+        b.disabled = false;
+      });
       setTimeout(() => {
         bottomBarDocStatus.textContent = 'Document Ready';
       }, 3000);
