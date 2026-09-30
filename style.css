@@ -1144,3 +1144,80 @@ html, body {
     justify-content: flex-end;
   }
 }
+
+/* ==========================================================================
+   Multi-Form Navigation & Conversation Form Extensions
+   ========================================================================== */
+.form-nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--slate-100);
+  padding: 0.25rem;
+  border-radius: var(--radius-md);
+  margin-left: 0.75rem;
+  border: 1px solid var(--slate-200);
+}
+
+.nav-tab {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--slate-600);
+  text-decoration: none;
+  padding: 0.3rem 0.75rem;
+  border-radius: calc(var(--radius-md) - 2px);
+  transition: all 0.15s ease;
+}
+
+.nav-tab:hover {
+  color: var(--slate-900);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.nav-tab.active {
+  background: var(--white);
+  color: var(--brand-red);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.conversation-policy-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: var(--slate-50);
+  border: 1px solid var(--slate-300);
+  border-left: 4px solid var(--brand-red);
+  padding: 1.15rem 1.35rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.conversation-policy-banner .policy-icon {
+  color: var(--brand-red);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.conversation-policy-banner .policy-text p {
+  font-size: 0.9375rem;
+  color: var(--slate-700);
+  line-height: 1.55;
+  margin-bottom: 0.5rem;
+}
+
+.conversation-policy-banner .policy-text p:last-child {
+  margin-bottom: 0;
+}
+
+.conversation-policy-banner .policy-warning {
+  color: var(--brand-red-dark) !important;
+  font-weight: 600;
+}
+
+.form-hint-note {
+  font-size: 0.8125rem;
+  color: var(--slate-500);
+  font-style: italic;
+  margin-top: 0.5rem;
+}

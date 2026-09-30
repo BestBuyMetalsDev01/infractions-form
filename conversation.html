@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation of Conversation | Best Buy Metals</title>
+  <meta name="description" content="Official Best Buy Metals Documentation of Conversation Form with dynamic multi-page details and PDF generation.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="128x128" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
+</head>
+<body>
+
+  <!-- Top Application Header -->
+  <header class="app-header">
+    <div class="brand-section">
+      <img src="assets/logo.png" alt="Best Buy Metals" class="header-logo" id="appLogo">
+      <div class="header-divider"></div>
+      <div class="header-title-wrap">
+        <h1 id="headerTitle">Documentation of Conversation</h1>
+      </div>
+      <span class="header-badge">Rev 07/2026</span>
+    </div>
+
+    <!-- Header Actions (Contextual based on screen) -->
+    <div class="header-actions">
+      <div class="save-indicator" id="saveIndicator" title="Changes auto-saved locally">
+        <span class="dot"></span> <span>Auto-saved</span>
+      </div>
+
+      <!-- Actions on Form Screen -->
+      <div id="formHeaderActions" style="display: flex; align-items: center; gap: 0.5rem;">
+        <button type="button" class="btn btn-ghost btn-sm" id="btnSampleData" title="Load sample conversation data">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+          </svg>
+          Sample Data
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" id="btnClearForm" title="Clear all fields">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+          </svg>
+          Reset
+        </button>
+        <button type="button" class="btn btn-primary" id="btnGoToConfirmHeader">
+          Review & Confirm
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Actions on Confirmation Screen -->
+      <div id="confirmHeaderActions" style="display: none; align-items: center; gap: 0.5rem;">
+        <button type="button" class="btn btn-secondary" id="btnBackToEditHeader">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+          </svg>
+          Back to Edit
+        </button>
+        <button type="button" class="btn btn-secondary" id="btnPrintHeader" title="Print document">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+          </svg>
+          Print
+        </button>
+        <button type="button" class="btn btn-primary" id="btnDownloadPdfHeader" title="Download official PDF document">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+          Download PDF
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====================================================================
+       SCREEN 1: Form Entry Screen
+       ==================================================================== -->
+  <div id="screenForm" class="screen-view form-screen">
+    <div class="form-screen-inner">
+
+      <div class="panel-intro">
+        <h2>
+          <span>Documentation of Conversation</span>
+        </h2>
+        <p>Complete this form to document a formal conversation held with an employee. Once completed, click <strong>Review & Confirm Document</strong> to inspect the rendered PDF pages before printing or downloading.</p>
+      </div>
+
+      <!-- Policy Acknowledgment Callout -->
+      <div class="conversation-policy-banner">
+        <div class="policy-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <div class="policy-text">
+          <p><strong>A conversation was held with the employee regarding the issue(s) outlined below.</strong></p>
+          <p>The expectation is that the employee will address and resolve this matter by enhancing their job performance and/or refraining from the conduct or omission that prompted this Documentation of Conversation.</p>
+          <p class="policy-warning">Continued failure to make the necessary improvements may result in further disciplinary action, up to and including termination.</p>
+        </div>
+      </div>
+
+      <!-- STEP 1: Basic Information -->
+      <section class="form-section">
+        <div class="section-header">
+          <h3 class="section-title"><span class="step-num">1</span> Employee Information</h3>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="inputEmployeeName">Employee Name <span class="required">*</span></label>
+            <input type="text" id="inputEmployeeName" class="form-input" placeholder="e.g. Johnathan Doe" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inputNoticeDate">Date <span class="required">*</span></label>
+            <input type="date" id="inputNoticeDate" class="form-input" required>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 2: Nature of Infraction -->
+      <section class="form-section">
+        <div class="section-header">
+          <h3 class="section-title"><span class="step-num">2</span> Nature of Infraction <span class="form-label-hint">(Check all that apply)</span></h3>
+        </div>
+
+        <div class="checkbox-grid">
+          <label class="checkbox-item">
+            <input type="checkbox" id="chkPoorPerformance" data-target="poor-perf">
+            <span>Poor Work Performance</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" id="chkRefusalOvertime" data-target="refusal-ot">
+            <span>Refusal to work overtime</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" id="chkAbuseLeave" data-target="abuse-leave">
+            <span>Abuse of Leave</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" id="chkSubstanceAbuse" data-target="substance-abuse">
+            <span>Substance Use/Abuse</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" id="chkInsubordination" data-target="insubordination">
+            <span>Insubordination</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" id="chkMisuseProperty" data-target="misuse-property">
+            <span>Misuse of Company Property</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" id="chkImproperConduct" data-target="improper-conduct">
+            <span>Improper Conduct</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" id="chkPropertyDamage" data-target="property-damage">
+            <span>Property Damage</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" id="chkSafetyViolation" data-target="safety-violation">
+            <span>Safety Violation</span>
+          </label>
+        </div>
+
+        <!-- Infractions requiring specific details/dates -->
+        <div class="detail-item-card" id="cardPolicy">
+          <label class="detail-item-header">
+            <input type="checkbox" id="chkPolicy" data-target="policy">
+            <span>Failure to comply with company policy</span>
+          </label>
+          <div class="detail-item-subinput">
+            <input type="text" id="inputPolicyName" class="form-input" placeholder="Name of Policy (e.g. Safety PPE Standards §4.2)">
+          </div>
+        </div>
+
+        <div class="detail-item-card" id="cardAbsenteeism">
+          <label class="detail-item-header">
+            <input type="checkbox" id="chkAbsenteeism" data-target="absenteeism">
+            <span>Absenteeism</span>
+          </label>
+          <div class="detail-item-subinput">
+            <input type="text" id="inputAbsenteeismDates" class="form-input" placeholder="List all applicable dates of absenteeism (e.g. 08/12/2026, 08/19/2026)">
+          </div>
+        </div>
+
+        <div class="detail-item-card" id="cardTardiness">
+          <label class="detail-item-header">
+            <input type="checkbox" id="chkTardiness" data-target="tardiness">
+            <span>Tardiness</span>
+          </label>
+          <div class="detail-item-subinput">
+            <input type="text" id="inputTardinessTimes" class="form-input" placeholder="List all applicable dates & tardiness times (e.g. 08/14 at 8:45 AM [+45m])">
+          </div>
+        </div>
+
+        <div class="detail-item-card" id="cardOther">
+          <label class="detail-item-header">
+            <input type="checkbox" id="chkOther" data-target="other">
+            <span>Other</span>
+          </label>
+          <div class="detail-item-subinput">
+            <input type="text" id="inputOtherDesc" class="form-input" placeholder="Describe the infraction category">
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 3: Incident Details (Infinite Multi-page Expansion) -->
+      <section class="form-section">
+        <div class="section-header">
+          <h3 class="section-title"><span class="step-num">3</span> Conversation & Incident Details</h3>
+        </div>
+
+        <div class="form-group">
+          <textarea id="inputDetails" class="form-textarea" rows="12" placeholder="Provide factual details, dates, specific behaviors discussed, employee response, expectations set, and agreed next steps. There is no space limit—continuation pages are automatically generated as needed..."></textarea>
+          <div class="textarea-footer">
+            <span><span id="charCount">0</span> characters | <span id="wordCount">0</span> words</span>
+            <span class="page-impact-badge" id="pageImpactBadge">2 Pages</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 4: Manager / Direct Report -->
+      <section class="form-section">
+        <div class="section-header">
+          <h3 class="section-title"><span class="step-num">4</span> Manager / Direct Report</h3>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="inputManagerName">Manager/Direct Report Printed Name <span class="required">*</span></label>
+            <input type="text" id="inputManagerName" class="form-input" placeholder="e.g. Sarah Jenkins, Operations Manager">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inputManagerDate">Date (MM/DD/YYYY)</label>
+            <input type="date" id="inputManagerDate" class="form-input">
+          </div>
+        </div>
+        <p class="form-hint-note">Signatures are affixed physically by hand on the printed / downloaded document.</p>
+      </section>
+
+      <!-- Bottom Submission / Review Bar -->
+      <div class="form-submit-bar">
+        <button type="button" class="btn btn-secondary btn-lg" id="btnClearFormBottom">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+          </svg>
+          Reset Form
+        </button>
+        <button type="button" class="btn btn-primary btn-lg" id="btnReviewForm">
+          Review & Confirm Document
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       SCREEN 2: Confirmation & Document Preview Screen
+       ==================================================================== -->
+  <div id="screenConfirmation" class="screen-view confirmation-screen hidden">
+
+    <!-- Top Confirmation Status Card -->
+    <div class="confirmation-header-card">
+      <div class="confirmation-summary-info">
+        <h2>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#059669" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+          Documentation of Conversation Ready for Review
+        </h2>
+        <p>Inspect the pages below. Verify all infraction details and manager information, then download or print.</p>
+        <div class="confirmation-meta-chips">
+          <span class="meta-chip" id="confirmEmpName">Employee: —</span>
+          <span class="meta-chip" id="confirmDate">Date: —</span>
+          <span class="meta-chip chip-highlight" id="confirmPageCount">2 Pages Generated</span>
+          <span class="meta-chip" id="confirmWordIntegrity" style="color: #059669; background: #ecfdf5; border-color: #a7f3d0;">✓ 100% Content Included</span>
+        </div>
+      </div>
+
+      <div class="confirmation-actions">
+        <button type="button" class="btn btn-secondary" id="btnBackToEdit">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+          </svg>
+          Back to Edit
+        </button>
+        <button type="button" class="btn btn-secondary" id="btnPrintConfirm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+          </svg>
+          Print
+        </button>
+        <button type="button" class="btn btn-primary" id="btnDownloadPdfConfirm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+          Download PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- Zoom & Density Toolbar -->
+    <div class="preview-toolbar">
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        </svg>
+        Document: <strong id="totalPagesBadge">2 Pages</strong>
+      </span>
+      <div class="zoom-controls">
+        <button type="button" class="zoom-btn" id="btnZoomOut" title="Zoom Out">−</button>
+        <span class="zoom-level" id="zoomLevel">80%</span>
+        <button type="button" class="zoom-btn" id="btnZoomIn" title="Zoom In">+</button>
+        <button type="button" class="zoom-btn" id="btnZoomFit" title="Reset Zoom" style="width: auto; padding: 0 8px; font-size: 0.75rem;">Reset</button>
+      </div>
+      <div class="density-selector" id="densitySelector" title="Adjust text density">
+        <span class="density-label">Density:</span>
+        <button type="button" class="density-btn" data-size="10pt" data-line="1.38">Compact (10pt)</button>
+        <button type="button" class="density-btn" data-size="11pt" data-line="1.45">Medium (11pt)</button>
+        <button type="button" class="density-btn active" data-size="12pt" data-line="1.55">Standard (12pt)</button>
+      </div>
+    </div>
+
+    <!-- Real Document Pages Render Container -->
+    <div class="preview-stage" id="documentRenderContainer">
+      <!-- Dynamic pages rendered here -->
+    </div>
+
+    <!-- Floating Bottom Action Dock -->
+    <div class="confirmation-bottom-bar" id="confirmationBottomBar">
+      <button type="button" class="btn btn-secondary btn-sm" id="btnBackToEditBottom">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+        </svg>
+        Back to Edit
+      </button>
+      <div class="confirmation-bottom-info">
+        <span class="dot"></span>
+        <span id="bottomBarDocStatus">Document Ready</span>
+      </div>
+      <div class="confirmation-bottom-actions">
+        <button type="button" class="btn btn-secondary btn-sm" id="btnPrintBottom" title="Print document">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+          </svg>
+          Print
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" id="btnDownloadPdfBottom">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+          Download PDF
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Vendors & Logic -->
+  <script src="vendor/html2pdf.bundle.min.js"></script>
+  <script src="conversation.js"></script>
+</body>
+</html>
