@@ -372,12 +372,8 @@ Marcus is expected to arrive promptly at his designated shift start time (7:00 A
     const header = document.createElement('div');
     header.className = 'doc-header';
     header.innerHTML = `
-      <div class="doc-header-left">
-        <img src="assets/logo.png" alt="Best Buy Metals" class="doc-logo">
-      </div>
-      <div class="doc-header-right">
-        <div class="doc-title-main">DOCUMENTATION OF CONVERSATION</div>
-      </div>
+      <img src="assets/logo.png" alt="Best Buy Metals" class="doc-logo-img">
+      <div class="doc-title">DOCUMENTATION OF CONVERSATION${isContinuation ? ' (Continued)' : ''}</div>
     `;
     return header;
   }

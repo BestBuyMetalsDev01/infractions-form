@@ -787,10 +787,15 @@ html, body {
   padding-bottom: 0.08in;
 }
 
-.doc-logo-img {
-  height: 0.42in;
-  width: auto;
-  object-fit: contain;
+.doc-header img,
+.doc-logo-img,
+.doc-logo {
+  height: 0.42in !important;
+  max-height: 0.42in !important;
+  max-width: 2.8in !important;
+  width: auto !important;
+  object-fit: contain !important;
+  display: block !important;
 }
 
 .doc-title {
